@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <title>{{ title }} </title>
+    <link rel=stylesheet type=text/css href="{{ url_for('static', filename='skeleton.css') }}">
+    <link rel=stylesheet type=text/css href="{{ url_for('static', filename='styles.css') }}">
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="row">
+
+        <div class="twelve columns" style="text-align:center;">
+          <h1>posifind</h1>
+          <form action="." method="POST">
+              <input type="text" name="text">
+              <input type="submit" name="my-form" value="Send">
+          </form>
+
+        {% if text %}
+          <h4>{{text}}</h4>
+        {% endif %}
+
+
+        {% for tweets in iterator: %}
+        <div class="tweet">
+            <p>@{{tweets['user']['screen_name']}}: {{tweets['text']}}
+            <a href="http://twitter.com/{{tweets['user']['screen_name']}}/status/{{tweets['id']}}">
+              Go to tweet!
+            </a></p>
+
+            <br>
+        </div>
+        {% endfor %}
+
+        </div>
+
+      </div>
+  </body>
+</html>
