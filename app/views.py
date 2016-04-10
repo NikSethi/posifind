@@ -28,29 +28,23 @@ def index():
 @app.route('/index.html', methods=['POST'])
 def index_post():
     text = request.form['text']
-    processed_text = text.upper()
-    values = {'q': text}
-    data = urllib.urlencode(values) + '%20%3A)'
-    # data = data + '&lang=en&result_type=recent'
-    data = data.encode('utf8')
 
-    iterator = api.GetSearch(data)
+    iterator = api.GetSearch(term=text, lang='en') # this is where the query is called
     iterator = (result.AsDict() for result in iterator)
 
     tweetList = []
     for tweet in iterator:
+        print tweet
         string = tweet['text'].encode('utf8')
         datum = urllib.urlencode({"text": string})
         u = urllib.urlopen("http://text-processing.com/api/sentiment/", datum)
         sentimentResponse = json.loads(u.read())
-        # print sentimentResponse['label']
         tweet['label'] = sentimentResponse["label"]
         if tweet['label'] == 'pos':
-        tweetList.append(tweet)
-        # print "potato",tweet
+            tweetList.append(tweet)
 
+    length = len(tweetList)
 
-
-    return render_template('index.html', text=processed_text, iterator= tweetList, url=data)
+    return render_template('index.html', text=text, iterator= tweetList, length = length)
 
 

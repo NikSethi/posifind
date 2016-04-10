@@ -13,13 +13,16 @@
 
         <div class="twelve columns" style="text-align:center;">
           <h1>posifind</h1>
+          <h5>Enter a twitter handle to find positive tweets mentioning that account </h3>
           <form action="." method="POST">
-              <input type="text" name="text">
-              <input type="submit" name="my-form" value="Send">
+              <input type="text" class="primary-input" name="text" placeholder="Type in a user to search for their mentions i.e. @drake.">
+              <input type="submit" name="my-form" value="Search">
           </form>
 
         {% if text %}
-          <h4>{{text}}</h4>
+          <h4>Found {{length}} mentions with positive sentiment about {{text}}</h4>
+        {% else %}
+          <h4>No mentions with positive sentiment about {{text}} found.</h4>
         {% endif %}
 
 
