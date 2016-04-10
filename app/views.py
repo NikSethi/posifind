@@ -46,7 +46,7 @@ def index_post():
         # print sentimentResponse['label']
         tweet['label'] = sentimentResponse["label"]
         if tweet['label'] == 'pos':
-            tweetList.append(tweet)
+        tweetList.append(tweet)
         # print "potato",tweet
 
 
